@@ -1,354 +1,116 @@
-public/
-    ├── users.json
-src/
-├── components/
-│   ├── Dashboard.js
-│   ├── SymptomTracker.js
-│   ├── MedicationManager.js
-│   ├── HealthInsights.js
-├── pages/
-│   ├── Home.js
-│   ├── Login.js
-│   ├── Register.js
-├── App.js
-├── index.js
-├── api/
-│   ├── geminiApi.js
-│   ├── auth.js
+# HealthFlow
 
+HealthFlow is a web application designed to help users track their health symptoms, manage medications, and receive personalized health insights. Built with React and Firebase, HealthFlow provides a user-friendly interface for monitoring personal health and wellness.
 
-//src/api/geminiApi.js
+## Features
 
-import axios from 'axios';
+- User Authentication: Secure login and registration system
+- Dashboard: Personalized user dashboard
+- Symptom Tracker: Log and monitor health symptoms
+- Medication Manager: Keep track of medications and dosages
+- Health Insights: Receive AI-powered health information based on logged symptoms
 
-const BASE_URL = 'http://localhost:3001/api';
+## Technologies Used
 
-export const getHealthInsights = async (symptoms) => {
-  try {
-    const response = await axios.post(`${BASE_URL}/health-insights`, { symptoms });
-    return response.data.insights;
-  } catch (error) {
-    console.error('Error fetching health insights:', error);
-    throw error;
-  }
-};
+- React.js
+- Firebase Authentication
+- CSS3
+- Gemini AI API for health insights
 
-//src/api/auth.js
+## Prerequisites
 
-import axios from 'axios';
+Before you begin, ensure you have met the following requirements:
 
-export const login = async (username, password) => {
-  try {
-    const response = await axios.get('/users.json');
-    const users = response.data;
-    const user = users.find((u) => u.username === username && u.password === password);
-    return user ? { success: true, user } : { success: false, message: 'Invalid credentials' };
-  } catch (error) {
-    console.error('Error during login:', error);
-    return { success: false, message: 'An error occurred during login' };
-  }
-};
+- Node.js (v14.0.0 or later)
+- npm (v6.0.0 or later)
+- A Firebase account
+- A Gemini AI API key
 
-//src/components/Dashboard.js
+## Installation
 
-import React from 'react';
-import SymptomTracker from './SymptomTracker';
-import MedicationManager from './MedicationManager';
+1. Clone the repository:
+   ```
+   git clone https://github.com/yourusername/healthflow.git
+   ```
 
-const Dashboard = () => {
-  return (
-    <div>
-      <h2>Dashboard</h2>
-      <SymptomTracker />
-      <MedicationManager />
-    </div>
-  );
-};
+2. Navigate to the project directory:
+   ```
+   cd healthflow
+   ```
 
-export default Dashboard;
+3. Install the dependencies:
+   ```
+   npm install
+   ```
 
+4. Create a `.env` file in the root directory and add your Firebase and Gemini AI API configurations:
+   ```
+   REACT_APP_FIREBASE_API_KEY=your_api_key
+   REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+   REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+   REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+   REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id
+   REACT_APP_FIREBASE_APP_ID=your_app_id
+   REACT_APP_GEMINI_API_KEY=your_gemini_api_key
+   ```
 
-//src/components/MedicationManager.js
+## Usage
 
-import React, { useState } from 'react';
+To run the application locally:
 
-const MedicationManager = () => {
-  const [medications, setMedications] = useState([]);
-  const [newMedication, setNewMedication] = useState('');
+1. Start the development server:
+   ```
+   npm start
+   ```
 
-  const addMedication = () => {
-    setMedications([...medications, newMedication]);
-    setNewMedication('');
-  };
+2. Open your browser and visit `http://localhost:3000`
 
-  return (
-    <div>
-      <h2>Medication Manager</h2>
-      <input
-        type="text"
-        value={newMedication}
-        onChange={(e) => setNewMedication(e.target.value)}
-        placeholder="Add a medication"
-      />
-      <button onClick={addMedication}>Add</button>
-      <ul>
-        {medications.map((med, index) => (
-          <li key={index}>{med}</li>
-        ))}
-      </ul>
-    </div>
-  );
-};
-export default MedicationManager;
+## Project Structure
 
+```
+healthflow/
+│
+├── public/
+│   └── index.html
+│
+├── src/
+│   ├── components/
+│   │   ├── Dashboard.js
+│   │   ├── Dashboard.css
+│   │   ├── SymptomTracker.js
+│   │   └── MedicationManager.js
+│   │
+│   ├── pages/
+│   │   ├── Home.js
+│   │   ├── HomePage.css
+│   │   ├── Login.js
+│   │   ├── LoginPage.css
+│   │   ├── Register.js
+│   │   ├── shared.css
+│   │   └── PrivateRoute.js
+│   │
+│   ├── api/
+│   │   └── geminiApi.js
+│   │
+│   ├── App.js
+│   ├── App.css
+│   ├── index.js
+│   ├── index.css
+│   └── firebase.js
+│
+├── .env
+├── package.json
+└── README.md
+```
 
-//src/components/HealthInsights.js
+## License
 
-import React from 'react';
+This project is under a proprietary license. See the [LICENSE.md](LICENSE.md) file for details.
 
-const HealthInsights = ({ insights }) => (
-  <div>
-    <h2>Health Insights</h2>
-    <p>{insights}</p>
-  </div>
-);
-export default HealthInsights;
+## Contact
 
+If you have any questions or feedback, please contact us at:
 
-//src/components/SymptomTracker.js
+Onesmus Dzidzai - dzidzaimaenza@gmail.com
 
-import React, { useState } from 'react';
-import { getHealthInsights } from '../api/geminiApi';
-
-const SymptomTracker = () => {
-  const [symptoms, setSymptoms] = useState('');
-  const [insights, setInsights] = useState('');
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError('');
-    setInsights('');
-    try {
-      const result = await getHealthInsights(symptoms);
-      setInsights(result);
-    } catch (error) {
-      console.error('Error getting health insights:', error);
-      setError(error.response?.data?.error || error.message || 'An unknown error occurred');
-    }
-    setIsLoading(false);
-  };
-
-  return (
-    <div>
-      <h2>Symptom Tracker</h2>
-      <form onSubmit={handleSubmit}>
-        <textarea
-          value={symptoms}
-          onChange={(e) => setSymptoms(e.target.value)}
-          placeholder="Enter your symptoms..."
-        />
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Getting Insights...' : 'Get Insights'}
-        </button>
-      </form>
-      {error && (
-        <div style={{ color: 'red', marginTop: '10px' }}>
-          Error: {error}
-        </div>
-      )}
-      {insights && (
-        <div>
-          <h3>Health Insights</h3>
-          <p>{insights}</p>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default SymptomTracker;
-//src/pages/Home.js
-
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-const Home = () => {
-  return (
-    <div>
-      <h1>Welcome to HealthFlow</h1>
-      <p>Your personalized health management app.</p>
-      <div>
-        <Link to="/login">
-          <button>Login</button>
-        </Link>
-        <Link to="/register">
-          <button>Register</button>
-        </Link>
-      </div>
-    </div>
-  );
-};
-
-export default Home;
-
-//src/pages/Login.js
-
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { login } from '../api/auth';
-
-const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await login(username, password);
-    if (result.success) {
-      localStorage.setItem('user', JSON.stringify(result.user));
-      navigate('/dashboard');
-    } else {
-      setError(result.message);
-    }
-  };
-
-  return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit">Login</button>
-      </form>
-    </div>
-  );
-};
-
-export default Login;
-
-
-//src/pages/Register.js
-
-import React from 'react';
-
-const Register = () => (
-  <div>
-    <h2>Register</h2>
-    <p>Registration functionality is under development.</p>
-  </div>
-);
-
-export default Register;
-
-//App.js
-
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Dashboard from './components/Dashboard';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
-
-function App() {
-  const isAuthenticated = !!localStorage.getItem('user');
-
-  return (
-    <Router>
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/dashboard"
-            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
-          />
-        </Routes>
-      </div>
-    </Router>
-  );
-}
-
-export default App;
-
-
-//server.js
-
-const express = require('express');
-const cors = require('cors');
-const axios = require('axios');
-const app = express();
-const port = 3001;
-
-app.use(cors());
-app.use(express.json());
-
-const API_KEY = 'AIzaSyD-dy-2W4rogeK7TRlgrZHBizeMsAaZ0O0';
-const BASE_URL = 'https://genai.googleapis.com/v1/models/gemini-pro:generateContent';
-
-app.post('/api/health-insights', async (req, res) => {
-  try {
-    const { symptoms } = req.body;
-    console.log('Received symptoms:', symptoms); // Log received symptoms
-
-    const prompt = `
-      As a health advisor, provide insights based on the following symptoms:
-      ${symptoms}
-      
-      Please provide specific, actionable advice to address these symptoms and improve the person's health.
-    `;
-
-    console.log('Sending request to Gemini API with prompt:', prompt); // Log the prompt
-
-    const response = await axios.post(BASE_URL, {
-      contents: [{
-        parts: [{
-          text: prompt
-        }]
-      }]
-    }, {
-      headers: {
-        'Authorization': `Bearer ${API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    console.log('Received response from Gemini API:', response.data); // Log the full response
-
-    if (response.data.candidates && response.data.candidates[0] && response.data.candidates[0].content) {
-      const insights = response.data.candidates[0].content.parts[0].text;
-      res.json({ insights });
-    } else {
-      throw new Error('Unexpected response structure from Gemini API');
-    }
-  } catch (error) {
-    console.error('Error in /api/health-insights:', error.response ? error.response.data : error.message);
-    res.status(500).json({ error: 'An error occurred while fetching health insights', details: error.message });
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Backend server listening at http://localhost:${port}`);
-});
+Project Link: [https://github.com/oni1997/healthflow](https://github.com/oni1997/healthflow)

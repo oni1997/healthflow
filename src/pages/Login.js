@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate, Link } from 'react-router-dom';
 import './LoginPage.css';
+import './shared.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');

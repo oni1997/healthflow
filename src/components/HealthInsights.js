@@ -1,5 +1,6 @@
 import React from 'react';
 import './HealthInsights.css';
+import '../pages/shared.css';
 
 const HealthInsights = ({ insights }) => {
   const formatInsights = (text) => {
