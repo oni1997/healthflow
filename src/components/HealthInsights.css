@@ -1,0 +1,48 @@
+.health-insights {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .health-insights h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+  }
+  
+  .health-insights h3 {
+    font-size: 1.2em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .health-insights p {
+    font-size: 1em;
+    margin-bottom: 15px;
+  }
+  
+  .health-insights ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .health-insights li {
+    margin-bottom: 10px;
+  }
+  
+  .health-insights strong {
+    font-weight: bold;
+  }
+  
+  .health-insights .note {
+    font-style: italic;
+    color: #555;
+  }
+  
+  .health-insights .important-note {
+    font-weight: bold;
+    color: #d9534f; /* Red color for emphasis */
+  }
+  
