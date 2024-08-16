@@ -112,5 +112,6 @@ This project is under a proprietary license. See the [LICENSE.md](LICENSE.md) fi
 If you have any questions or feedback, please contact us at:
 
 Onesmus Dzidzai - dzidzaimaenza@gmail.com
+Jayson Brandon Siko - Brandonsiko3@gmail.com
 
 Project Link: [https://github.com/oni1997/healthflow](https://github.com/oni1997/healthflow)
