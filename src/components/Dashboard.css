@@ -34,7 +34,28 @@
     margin-top: 0;
     color: var(--primary-color);
   }
-  
+    /* src/components/Dashboard.css */
+  .medication-manager {
+    margin-top: 20px;
+  }
+
+  .medication-manager input {
+    margin-right: 10px;
+  }
+
+  .drug-info {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .error {
+    color: red;
+    margin-top: 10px;
+  }
+
   .logout-btn {
     background-color: white;
     color: var(--primary-color);

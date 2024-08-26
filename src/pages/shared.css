@@ -5,7 +5,10 @@
     --text-color: #333;
     --error-color: #d0021b;
   }
-  
+:root {
+  --primary-color: #4CAF50; /* Example primary color */
+}
+
   body {
     font-family: 'Arial', sans-serif;
     margin: 0;

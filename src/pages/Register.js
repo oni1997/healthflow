@@ -13,10 +13,18 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+  
+    // Basic validation
+    if (!email || !password || !confirmPassword) {
+      setError("All fields are required.");
+      return;
+    }
+  
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
+  
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       console.log('User registered successfully:', userCredential.user);
@@ -37,6 +45,7 @@ const RegisterPage = () => {
       }
     }
   };
+  
 
   return (
     <div className="register-page">

@@ -13,6 +13,13 @@ const LoginPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+  
+    if (!email || !password) {
+      setError('Both email and password are required.');
+      return;
+    }
+  
     try {
       await signInWithEmailAndPassword(auth, email, password);
       navigate('/dashboard');
@@ -20,6 +27,7 @@ const LoginPage = () => {
       setError(err.message);
     }
   };
+  
 
   return (
     <div className="login-page">
